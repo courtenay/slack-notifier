@@ -11,7 +11,11 @@ module Slack
       end
 
       def initialize string
-        @orig = string
+        @orig = if string.respond_to? :scrub
+          string.scrub
+        else
+          string
+        end
       end
 
       def formatted
@@ -23,6 +27,13 @@ module Slack
           link = Regexp.last_match[2]
           text = Regexp.last_match[1]
           slack_link link, text
+        end
+
+      rescue => e
+        if RUBY_VERSION < '2.1' && e.message.include?('invalid byte sequence')
+          raise e, "#{e.message}. Consider including the 'string-scrub' gem to strip invalid characters"
+        else
+          raise e
         end
       end
 

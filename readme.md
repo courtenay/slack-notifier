@@ -1,6 +1,6 @@
 A simple wrapper to send notifications to [Slack](https://slack.com/) webhooks.
 
-[![Build Status](https://travis-ci.org/stevenosloan/slack-notifier.png?branch=master)](https://travis-ci.org/stevenosloan/slack-notifier)  [![Code Climate](https://codeclimate.com/github/stevenosloan/slack-notifier.png)](https://codeclimate.com/github/stevenosloan/slack-notifier)
+[![Build Status](https://travis-ci.org/stevenosloan/slack-notifier.svg?branch=master)](https://travis-ci.org/stevenosloan/slack-notifier)  [![Code Climate](https://codeclimate.com/github/stevenosloan/slack-notifier.svg)](https://codeclimate.com/github/stevenosloan/slack-notifier)
 
 
 ## Example
@@ -59,6 +59,18 @@ Slack::Notifier::LinkFormatter.format(message)
 # => "Hello world, <http://example.com|check> it <http://example.com|out>"
 ```
 
+## Formatting
+
+Slack supports various different formatting options.  For example, if you want to alert an entire channel you include `<!channel>` in your message
+
+```ruby
+message = "<!channel> hey check this out"
+notifier.ping message
+
+#ends up posting "@channel hey check this out" in your Slack channel
+```
+
+You can see [Slacks message documentation here](https://api.slack.com/docs/formatting) 
 
 ## Additional parameters
 
